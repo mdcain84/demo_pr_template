@@ -12,6 +12,19 @@
 		"prepare-commit-msg": ".\\tools\\prepare-commit-msg.sh"
 	  }
 },
+"commitlint": {
+    "rules": {
+      "references-empty": [2, "never"],
+	  "scope-case": [2, "always", "upper-case"],
+        "subject-case": [2, "always", "sentence-case"],
+		"references-empty": [2, "never"]
+    },
+    "parserPreset": {
+      "parserOpts": {
+        "issuePrefixes": ["PROJ-"]
+      }
+    },
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mdcain84/demo_pr_template.git"

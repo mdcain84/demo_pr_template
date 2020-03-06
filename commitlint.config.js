@@ -3,6 +3,7 @@ module.exports = {
     "rules": {
         "references-empty": [2, "never"],
         "subject-case": [2, "always", "sentence-case"],
+		"footer-leading-blank": [0]
     },
     "parserPreset": {
         "parserOpts": {

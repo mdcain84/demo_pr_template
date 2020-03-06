@@ -23,8 +23,8 @@ if [ ! -z "$BRANCH_NAME" ] && [ "$BRANCH_NAME" != "HEAD" ] && [ "$SKIP_PREPARE_C
   PREFIX_IN_COMMIT=$(grep -c "\[$PREFIX\]" .git/COMMIT_EDITMSG)
   # Ensure PREFIX exists in BRANCH_NAME and is not already present in the commit message
   if [[ -n "$PREFIX" ]] && ! [[ $PREFIX_IN_COMMIT -ge 1 ]]; then
-	git interpret-trailers --in-place --trailer "$PREFIX" ".git/COMMIT_EDITMSG"
-    #sed -i.bak -e "1s~^~feat($PREFIX): ~" $COMMIT_MSG_FILE
+	git interpret-trailers --in-place --trailer "JIRA:$PREFIX" ".git/COMMIT_EDITMSG"
+	/usr/bin/perl -i.bak -pe 'print "\n" if !$first_line++' ".git/COMMIT_EDITMSG"
   fi
 
 fi

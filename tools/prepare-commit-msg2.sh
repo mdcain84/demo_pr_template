@@ -6,10 +6,9 @@
 # Useful for looking through git history and relating a commit or group of commits
 # back to a user story.
 #
+set -x
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-COMMIT_MSG_FILE=$1
-COMMIT_SOURCE=$2
-SHA1=$3
+
 # Ensure BRANCH_NAME is not empty and is not in a detached HEAD state (i.e. rebase).
 # SKIP_PREPARE_COMMIT_MSG may be used as an escape hatch to disable this hook,
 # while still allowing other githooks to run.
@@ -21,19 +20,16 @@ if [ ! -z "$BRANCH_NAME" ] && [ "$BRANCH_NAME" != "HEAD" ] && [ "$SKIP_PREPARE_C
 
   PREFIX=${BASH_REMATCH[0]}
 
-  PREFIX_IN_COMMIT=$(grep -c "\[$PREFIX\]" $COMMIT_MSG_FILE)
+  PREFIX_IN_COMMIT=$(grep -c "\[$PREFIX\]" .git/COMMIT_EDITMSG)
   # Ensure PREFIX exists in BRANCH_NAME and is not already present in the commit message
   if [[ -n "$PREFIX" ]] && ! [[ $PREFIX_IN_COMMIT -ge 1 ]]; then
-	SOB=$(git var GIT_COMMITTER_IDENT | sed -n 's/^\(.*>\).*$/$PREFIX \1/p')
-	git interpret-trailers --in-place --trailer "$SOB" "$COMMIT_MSG_FILE"
-	if test -z "$COMMIT_SOURCE"
-	then
-	  /usr/bin/perl -i.bak -pe 'print "\n" if !$first_line++' "$COMMIT_MSG_FILE"
-	fi
+	git interpret-trailers --in-place --trailer "$PREFIX" ".git/COMMIT_EDITMSG"
     #sed -i.bak -e "1s~^~feat($PREFIX): ~" $COMMIT_MSG_FILE
   fi
 
 fi
+read -p "Press enter to continue"
+set +x
 #
 # Resources:
 #   - https://gist.github.com/bartoszmajsak/1396344

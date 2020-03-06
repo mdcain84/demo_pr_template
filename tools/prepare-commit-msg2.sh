@@ -23,7 +23,7 @@ if [ ! -z "$BRANCH_NAME" ] && [ "$BRANCH_NAME" != "HEAD" ] && [ "$SKIP_PREPARE_C
   PREFIX_IN_COMMIT=$(grep -c "\[$PREFIX\]" .git/COMMIT_EDITMSG)
   # Ensure PREFIX exists in BRANCH_NAME and is not already present in the commit message
   if [[ -n "$PREFIX" ]] && ! [[ $PREFIX_IN_COMMIT -ge 1 ]]; then
-	JN=$(git var "JIRA:$PREFIX" | sed -n "s/^.*$/\n& /p")
+	JN=$(git var GIT_COMMITTER_IDENT | sed -n "s/^.*$/\nJIRA:$PREFIX/p")
 	git interpret-trailers --in-place --trailer "$JN" ".git/COMMIT_EDITMSG"
 	/usr/bin/perl -i.bak -pe 'print "\n" if !$first_line++' ".git/COMMIT_EDITMSG"
   fi

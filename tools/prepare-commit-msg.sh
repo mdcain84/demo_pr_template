@@ -1,5 +1,4 @@
 #!/bin/bash
-
 #
 # Inspects branch name and checks if it contains a Jira ticket number (i.e. ABC-123).
 # If yes, commit message will be automatically prepended with [ABC-123].
@@ -7,29 +6,25 @@
 # Useful for looking through git history and relating a commit or group of commits
 # back to a user story.
 #
-
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-
 # Ensure BRANCH_NAME is not empty and is not in a detached HEAD state (i.e. rebase).
 # SKIP_PREPARE_COMMIT_MSG may be used as an escape hatch to disable this hook,
 # while still allowing other githooks to run.
 if [ ! -z "$BRANCH_NAME" ] && [ "$BRANCH_NAME" != "HEAD" ] && [ "$SKIP_PREPARE_COMMIT_MSG" != 1 ]; then
 
   PREFIX_PATTERN='[A-Z]{2,5}-[0-9]{1,4}'
-
+  
   [[ $BRANCH_NAME =~ $PREFIX_PATTERN ]]
 
   PREFIX=${BASH_REMATCH[0]}
 
-  PREFIX_IN_COMMIT=$(grep -c "\[$PREFIX\]" $1)
-
+  PREFIX_IN_COMMIT=$(grep -c "\[$PREFIX\]" .git/COMMIT_EDITMSG)
   # Ensure PREFIX exists in BRANCH_NAME and is not already present in the commit message
   if [[ -n "$PREFIX" ]] && ! [[ $PREFIX_IN_COMMIT -ge 1 ]]; then
-    sed -i.bak -e "1s~^~[$PREFIX] ~" $1
+    sed -i.bak -e "1s~^~feat($PREFIX): ~" .git/COMMIT_EDITMSG
   fi
 
 fi
-
 #
 # Resources:
 #   - https://gist.github.com/bartoszmajsak/1396344
@@ -49,7 +44,7 @@ fi
 # Alternative method for finding the branch name
 #
 # Note that during a rebase, this will return something like
-#   (no branch, rebasing ABC-123-feature-x)
+#   (no branch, rebasing ABC-123-feature-x)https://likegeeks.com/wp-content/uploads/2017/02/06-sed-substitute-flag.png
 # instead of
 #   HEAD
 #

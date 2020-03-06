@@ -9,7 +9,7 @@
   "husky": {
 	  "hooks": {
 		"commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-		"prepare-commit-msg": "./tools/prepare-commit-msg.sh $HUSKY_GIT_PARAMS"
+		"prepare-commit-msg": ".\\tools\\prepare-commit-msg.sh"
 	  }
 },
   "repository": {

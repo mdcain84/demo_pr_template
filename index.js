@@ -1,0 +1,1 @@
+console.log('HUSKY_GIT_PARAMS', process.env.HUSKY_GIT_PARAMS)

@@ -6,7 +6,6 @@
 # Useful for looking through git history and relating a commit or group of commits
 # back to a user story.
 #
-set -x
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
 
 # Ensure BRANCH_NAME is not empty and is not in a detached HEAD state (i.e. rebase).
@@ -29,8 +28,6 @@ if [ ! -z "$BRANCH_NAME" ] && [ "$BRANCH_NAME" != "HEAD" ] && [ "$SKIP_PREPARE_C
   fi
 
 fi
-read -p "Press enter to continue"
-set +x
 #
 # Resources:
 #   - https://gist.github.com/bartoszmajsak/1396344

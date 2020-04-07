@@ -8,8 +8,7 @@
     },
     "husky": {
         "hooks": {
-            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-            "prepare-commit-msg": ".\\tools\\prepare-commit-msg2.sh"
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
         }
     },
     "repository": {
@@ -25,7 +24,8 @@
     "dependencies": {},
     "devDependencies": {
         "@commitlint/cli": "^8.3.5",
-        "@commitlint/config-conventional": "^8.3.4",
+        "commitlint-config-jira": "^1.4.1",
+        "commitlint-plugin-jira-rules": "^1.4.0",
         "husky": "^3.1.0"
     }
 }

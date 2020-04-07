@@ -7,7 +7,7 @@ module.exports = {
     },
     "parserPreset": {
         "parserOpts": {
-            "issuePrefixes": ["NGSD-", "CESBASE-"]
+            "issuePrefixes": ["JIRA-", "CESBASE-"]
         }
     }
 };

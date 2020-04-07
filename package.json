@@ -1,0 +1,31 @@
+{
+    "name": "demo_pr_template",
+    "version": "1.0.0",
+    "description": "Test changes",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "husky": {
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+            "prepare-commit-msg": ".\\tools\\prepare-commit-msg2.sh"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mdcain84/demo_pr_template.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/mdcain84/demo_pr_template/issues"
+    },
+    "homepage": "https://github.com/mdcain84/demo_pr_template#readme",
+    "dependencies": {},
+    "devDependencies": {
+        "@commitlint/cli": "^8.3.5",
+        "@commitlint/config-conventional": "^8.3.4",
+        "husky": "^3.1.0"
+    }
+}

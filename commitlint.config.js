@@ -1,13 +1,7 @@
 module.exports = {
-    extends: ['@commitlint/config-conventional'],
-    "rules": {
-        "references-empty": [2, "never"],
-        "subject-case": [2, "always", "sentence-case"],
-		"footer-leading-blank": [0]
-    },
-    "parserPreset": {
-        "parserOpts": {
-            "issuePrefixes": ["NGSD-", "CESBASE-"]
-        }
+	plugins: ['commitlint-plugin-jira-rules'],
+    extends: ['jira'],
+    'rules': {
+        'jira-task-id-project-key': [2, "always", ["JIRA", "CESBASE"]]
     }
 };
